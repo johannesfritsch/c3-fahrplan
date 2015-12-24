@@ -2,7 +2,7 @@ var assert     = require('assert');
 var sinon      = require('sinon');
 var proxyquire = require('proxyquire');
 
-describe('Fahrplan', function(){
+describe('modules/has-congress-begun', function(){
 	it('hasCongressBegun returns true during congress', function(done){
 		var clock = sinon.useFakeTimers(new Date(2015, 12-1, 28).getTime());
 

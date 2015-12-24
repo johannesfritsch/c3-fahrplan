@@ -1,15 +1,17 @@
 var request = require('request');
+var moment = require('moment');
 
-var cache = null;
+var cache = {};
 
 module.exports = function(cb) {
-	if(cache) {
-		cb(null, cache);
+	var year = moment().format('YYYY');
+	if(cache[year]) {
+		cb(null, cache[year]);
 	} else {
-		request('https://events.ccc.de/congress/2015/Fahrplan/schedule.json', function (err, res, body) {
+		request('https://events.ccc.de/congress/' + year + '/Fahrplan/schedule.json', function (err, res, body) {
 		  if (!err && res.statusCode == 200) {
-		    cache = JSON.parse(body)
-		    cb(null, cache);
+		    cache[year] = JSON.parse(body)
+		    cb(null, cache[year]);
 		  } else {
 		  	cb(err);
 		  }
